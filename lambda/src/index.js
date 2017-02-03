@@ -5,14 +5,15 @@ const config = require('./config')
 
 exports.handler = (event, context, callback) => {
   const qs = event.queryStringParameters || {}
-  const contentType = qs.contentType || event.contentType
-  const filePath = qs.filePath || event.filePath
+  const type = qs.type || event.type
+  const name = qs.name || event.name
+  const headers = { 'Access-Control-Allow-Origin': '*' }
 
   const error = (err) => {
     const statusCode = 400
     const response = {
       statusCode,
-      headers: {},
+      headers: headers,
       body: JSON.stringify({ error: err, statusCode })
     }
     callback(null, response)
@@ -21,29 +22,29 @@ exports.handler = (event, context, callback) => {
   const success = (params) => {
     const response = {
       statusCode: 200,
-      headers: {},
+      headers: headers,
       body: JSON.stringify(params)
     }
     callback(null, response)
   }
 
-  if (!contentType) {
-    return error('Missing "contentType"')
+  if (!type) {
+    return error('Missing "type"')
   }
 
-  if (config.mimeTypes.indexOf(contentType) === -1) {
-    return error('Unsupported "contentType": ' + contentType)
+  if (config.mimeTypes.indexOf(type) === -1) {
+    return error('Unsupported "type": ' + type)
   }
 
-  if (!filePath) {
-    return error('Missing "filePath"')
+  if (!name) {
+    return error('Missing "name"')
   }
 
-  const key = uuid() + '_' + encodeURIComponent(filePath)
+  const key = uuid() + '_' + encodeURIComponent(name)
 
   const params = {
     Key: key,
-    ContentType: contentType,
+    ContentType: type,
     Bucket: config.bucketName,
     Expires: config.expires,
     ACL: config.acl
@@ -52,6 +53,6 @@ exports.handler = (event, context, callback) => {
   s3.getSignedUrl('putObject', params, (err, url) => {
     return err
       ? error(err)
-      : success({ url, contentType, filePath, params })
+      : success({ url, type, name, params })
   })
 }
