@@ -7,7 +7,8 @@
     "build": "webpack --progress --colors",
     "watch": "webpack --progress --colors --watch",
     "runner": "node tools/runner",
-    "zip": "node tools/zip"
+    "zip": "node tools/zip",
+    "bundle": "yarn build && yarn zip"
   },
   "author": "Will Bamford",
   "license": "MIT",

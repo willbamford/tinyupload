@@ -5,8 +5,8 @@ const handler = require('../src').handler
 
 const event = {
   queryStringParameters: {
-    path: 'test.jpg',
-    type: 'image/jpeg'
+    filePath: 'img.jpg',
+    contentType: 'image/jpeg'
   }
 }
 
@@ -30,7 +30,7 @@ const callback = (err, result) => {
   const params = JSON.parse(result.body)
 
   header('Copy-paste the following to test with CURL')
-  console.log('curl -H "Content-Type: image/jpeg" -v --upload-file "' + params.path + '" "' + params.url + '"')
+  console.log('curl -H "Content-Type: ' + params.contentType + '" -v --upload-file "' + params.filePath + '" "' + params.url + '"')
 
   header('Result')
   console.log(JSON.stringify(result, null, 2))
