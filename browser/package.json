@@ -1,0 +1,8 @@
+{
+  "name": "tinyupload-browser",
+  "version": "1.0.0",
+  "description": "tinyupload browser",
+  "main": "index.js",
+  "author": "Will Bamford",
+  "license": "MIT"
+}

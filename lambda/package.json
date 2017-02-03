@@ -1,0 +1,20 @@
+{
+  "name": "tinyupload-lambda",
+  "version": "1.0.1",
+  "description": "tinyupload lambda",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "webpack --progress --colors",
+    "watch": "webpack --progress --colors --watch",
+    "runner": "node tools/runner",
+    "zip": "node tools/zip"
+  },
+  "author": "Will Bamford",
+  "license": "MIT",
+  "dependencies": {
+    "archiver": "^1.3.0",
+    "aws-sdk": "^2.9.0",
+    "uuid": "^3.0.1",
+    "webpack": "^2.2.1"
+  }
+}
