@@ -8,6 +8,9 @@ exports.handler = (event, context, callback) => {
   const type = qs.type || event.type
   const name = qs.name || event.name
   const headers = { 'Access-Control-Allow-Origin': '*' }
+  const bucketName = config.bucketName
+  const expires = config.expires
+  const acl = config.acl
 
   const error = (err) => {
     const statusCode = 400
@@ -33,7 +36,7 @@ exports.handler = (event, context, callback) => {
   }
 
   if (config.mimeTypes.indexOf(type) === -1) {
-    return error('Unsupported "type": ' + type)
+    return error(`Unsupported "type": ${type}`)
   }
 
   if (!name) {
@@ -45,14 +48,20 @@ exports.handler = (event, context, callback) => {
   const params = {
     Key: key,
     ContentType: type,
-    Bucket: config.bucketName,
-    Expires: config.expires,
-    ACL: config.acl
+    Bucket: bucketName,
+    Expires: expires,
+    ACL: acl
   }
 
-  s3.getSignedUrl('putObject', params, (err, url) => {
+  s3.getSignedUrl('putObject', params, (err, signedUrl) => {
     return err
       ? error(err)
-      : success({ url, type, name, params })
+      : success({
+        signedUrl,
+        url: `https://${bucketName}.s3.amazonaws.com/${name}`,
+        type,
+        name,
+        params
+      })
   })
 }

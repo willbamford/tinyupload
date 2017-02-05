@@ -30,7 +30,7 @@ const callback = (err, result) => {
   const params = JSON.parse(result.body)
 
   header('Copy-paste the following to test with CURL')
-  console.log('curl -v -H "Content-Type: ' + params.type + '" -T "' + params.name + '" "' + params.url + '"')
+  console.log(`curl -v -H "Content-Type: ${params.type}" -T "${params.name}" "${params.signedUrl}"`)
 
   header('Result')
   console.log(JSON.stringify(result, null, 2))
