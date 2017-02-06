@@ -43,7 +43,7 @@ exports.handler = (event, context, callback) => {
     return error('Missing "name"')
   }
 
-  const key = uuid() + '_' + encodeURIComponent(name)
+  const key = uuid() + '_' + name.replace(/[^A-Za-z-_0-9!().]/g, '')
 
   const params = {
     Key: key,
@@ -58,7 +58,7 @@ exports.handler = (event, context, callback) => {
       ? error(err)
       : success({
         signedUrl,
-        url: `https://${bucketName}.s3.amazonaws.com/${name}`,
+        url: `https://${bucketName}.s3.amazonaws.com/${key}`,
         type,
         name,
         params

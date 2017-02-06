@@ -12,8 +12,8 @@ const event = {
 
 const header = (text) => {
   const line = (len) => {
-    let s = ''
-    for (let i = 0; i < len; i += 1) { s += '-' }
+    var s = ''
+    for (var i = 0; i < len; i += 1) { s += '-' }
     return s
   }
   console.log('\n')

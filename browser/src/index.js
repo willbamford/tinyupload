@@ -1,7 +1,3 @@
-<label for="input-image">Select image</label>
-<input type="file" id="input-image" multiple>
-
-<script>
 (function () {
   var inputImage = document.getElementById('input-image')
   inputImage.onchange = function () {
@@ -16,8 +12,8 @@
   }
 }())
 
-function getSignedRequest(file) {
-  var xhr = new XMLHttpRequest()
+function getSignedRequest (file) {
+  var xhr = new window.XMLHttpRequest()
 
   var baseUrl = 'https://ual17esjvc.execute-api.eu-west-1.amazonaws.com/dev/UniversalRenderImageUploadLambda'
   var qs = '?name=' + file.name + '&type=' + file.type
@@ -29,14 +25,32 @@ function getSignedRequest(file) {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
         var response = JSON.parse(xhr.responseText)
-        console.log(response)
-        // uploadFile(file, response.signedRequest, response.url)
-      }
-      else{
-        alert('Could not get signed URL')
+        // console.log(response)
+        uploadFile(file, response.signedUrl, response.url)
+      } else {
+        window.alert('Could not get signed URL')
       }
     }
   }
   xhr.send()
 }
-</script>
+
+function uploadFile (file, signedRequest, url) {
+  const xhr = new window.XMLHttpRequest()
+  xhr.open('PUT', signedRequest)
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        console.log('Success')
+        console.log(url)
+
+        const image = new window.Image()
+        image.src = url
+        document.body.appendChild(image)
+      } else {
+        window.alert('Could not upload file')
+      }
+    }
+  }
+  xhr.send(file)
+}
