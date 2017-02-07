@@ -1,17 +1,21 @@
 const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const merge = require('webpack-merge')
+const path = require('path')
 
 const env = process.env.NODE_ENV
 
+const NAME = 'tinyupload'
+
 const common = {
   entry: {
-    main: './src'
+    main: path.resolve('./src')
   },
   output: {
-    path: './dist',
+    path: path.resolve('./dist'),
     publicPath: '/',
-    library: 'tinyupload',
+    library: NAME,
     libraryTarget: 'umd'
   },
   module: {
@@ -22,12 +26,15 @@ const common = {
         loader: 'babel-loader'
       },
       {
-        test: /\.json$/,
-        loader: 'json-loader'
-      },
-      {
         test: /\.glsl$/,
         loader: 'raw-loader'
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader'
+        })
       }
     ]
   },
@@ -35,7 +42,8 @@ const common = {
     extensions: ['.js', '.jsx', '.glsl']
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: 'src/index.html' }),
+    new ExtractTextPlugin(`${NAME}.css`),
+    new HtmlPlugin({ template: 'src/index.html' }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(env)
     })
@@ -44,7 +52,7 @@ const common = {
 
 const development = {
   output: {
-    filename: `tinyupload.umd.js`
+    filename: `${NAME}.umd.js`
   },
   devServer: {
     compress: true,
@@ -63,23 +71,16 @@ const development = {
 
 const production = {
   output: {
-    filename: `tinyupload.umd.min.js`
+    filename: `${NAME}.umd.min.js`
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
-    }),
     new webpack.optimize.UglifyJsPlugin({ compress: { warnings: true } })
   ]
 }
 
 const config = merge(
   common,
-  env === 'production'
-    ? production
-    : development
+  env === 'production' ? production : development
 )
 
 module.exports = config
