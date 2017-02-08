@@ -1,7 +1,7 @@
-export const getSignedRequest = ({ name, type, baseUrl }, cb) => {
+const getSignedUrl = ({ name, type, baseUrl }, cb) => {
   const xhr = new window.XMLHttpRequest()
 
-  const qs = '?name=' + file.name + '&type=' + file.type
+  const qs = '?name=' + name + '&type=' + type
   const url = baseUrl + qs
 
   xhr.open('GET', url, true)
@@ -24,3 +24,5 @@ export const getSignedRequest = ({ name, type, baseUrl }, cb) => {
   }
   xhr.send()
 }
+
+export default getSignedUrl

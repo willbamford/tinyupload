@@ -1,11 +1,11 @@
-export var getSignedRequest = function getSignedRequest(_ref, cb) {
+var getSignedUrl = function getSignedUrl(_ref, cb) {
   var name = _ref.name,
       type = _ref.type,
       baseUrl = _ref.baseUrl;
 
   var xhr = new window.XMLHttpRequest();
 
-  var qs = '?name=' + file.name + '&type=' + file.type;
+  var qs = '?name=' + name + '&type=' + type;
   var url = baseUrl + qs;
 
   xhr.open('GET', url, true);
@@ -28,3 +28,5 @@ export var getSignedRequest = function getSignedRequest(_ref, cb) {
   };
   xhr.send();
 };
+
+export default getSignedUrl;
