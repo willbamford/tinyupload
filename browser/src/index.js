@@ -1,5 +1,7 @@
 import './style.css'
 
+import { baseUrl, mimeTypes } from './config'
+
 import createUI, {
   UI_FILES_CHANGE,
   UI_SUBMIT
@@ -11,14 +13,13 @@ import createModel, {
   UPLOADED
 } from './model'
 
-const baseUrl = 'https://ual17esjvc.execute-api.eu-west-1.amazonaws.com/dev/UniversalRenderImageUploadLambda'
-
-const model = createModel({ baseUrl })
+const model = createModel({ baseUrl, mimeTypes })
 
 const mount = document.getElementById('mount')
 const ui = createUI({
   mount,
-  hasDnd: model.hasDnd
+  mimeTypes: model.getMimeTypes(),
+  hasDnd: model.hasDnd()
 })
 
 ui

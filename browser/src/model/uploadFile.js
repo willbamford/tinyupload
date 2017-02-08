@@ -1,14 +1,15 @@
-const uploadFile = (file, signedRequest, url) => {
+const uploadFile = (file, signedUrl, url, cb) => {
   const xhr = new window.XMLHttpRequest()
-  xhr.open('PUT', signedRequest)
+  xhr.open('PUT', signedUrl)
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-        const image = new window.Image()
-        image.src = url
-        document.body.appendChild(image)
+        cb(null, { file, url })
       } else {
-        window.alert('Could not upload file')
+        cb({
+          message: 'Could not upload file',
+          status: xhr.status
+        })
       }
     }
   }
