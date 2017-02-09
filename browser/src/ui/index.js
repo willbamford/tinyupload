@@ -16,12 +16,14 @@ const create = ({
   const UPLOADING_CLASS = 'tu--is-uploading'
   const SUCCESS_CLASS = 'tu--is-success'
   const ERROR_CLASS = 'tu--is-error'
+  const HAS_DND_CLASS = 'tu--has-dnd'
+  const AUTO_SUBMIT_CLASS = 'tu--auto-submit'
 
   // TODO: data-multiple-caption="{count} files selected"
 
   const html = `
     <form
-      class="tu tu--is-waiting ${stringIf(hasDnd, 'tu--has-dnd')} ${stringIf(autoSubmit, 'tu--auto-submit')}"
+      class="tu ${WAITING_CLASS} ${stringIf(hasDnd, HAS_DND_CLASS)} ${stringIf(autoSubmit, AUTO_SUBMIT_CLASS)}"
       method="post"
       action=""
       enctype="multipart/form-data"
