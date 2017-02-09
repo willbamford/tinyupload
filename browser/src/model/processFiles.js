@@ -3,7 +3,6 @@ import uploadFile from './uploadFile'
 
 const processFile = (baseUrl, file, cb) => {
   getSignedUrl({ name: file.name, type: file.type, baseUrl }, (err, res) => {
-    console.log('res', res)
     const { signedUrl, url } = res
     if (err) {
       return cb(err)

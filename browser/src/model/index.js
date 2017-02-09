@@ -7,15 +7,10 @@ const create = ({ baseUrl, mimeTypes }) => {
   const emit = addEmitter(instance)
   const dnd = supportsDnd()
 
-  const STATUS_WAITING = 'waiting'
-  const STATUS_UPLOADING = 'uploading'
-  const STATUS_SUCCESS = 'success'
-  const STATUS_ERROR = 'error'
-
   // State transitions:
   // WAITING -> UPLOADING -> (SUCCESS -> WAITING | ERROR -> WAITING)
 
-  let status = STATUS_WAITING
+  let status = WAITING
   let method = null
   let files = []
 
@@ -24,6 +19,9 @@ const create = ({ baseUrl, mimeTypes }) => {
   const getStatus = () => status
 
   const setFiles = (f, m) => {
+    if (status !== WAITING) {
+      return console.log(`Invalid status for setting files: ${status}`)
+    }
     files = f
     method = m
     emit(FILES_CHANGE, files, method)
@@ -38,22 +36,30 @@ const create = ({ baseUrl, mimeTypes }) => {
       return console.log('No files to upload')
     }
 
-    if (status !== STATUS_WAITING) {
-      return console.log('Wrong status for upload', status)
+    if (status !== WAITING) {
+      return console.log(`Invalid status for upload: ${status}`)
     }
 
-    status = STATUS_UPLOADING
+    status = UPLOADING
     emit(UPLOADING, files)
 
     processFiles(baseUrl, files, (errors, responses) => {
       if (errors) {
-        status = STATUS_ERROR
-        emit(UPLOADED, errors)
+        status = ERROR
+        emit(ERROR, errors)
       } else {
-        status = STATUS_SUCCESS
-        emit(UPLOADED, null, responses)
+        status = SUCCESS
+        emit(SUCCESS, responses)
       }
     })
+  }
+
+  const tryAgain = () => {
+    if (!(status === ERROR || status === SUCCESS)) {
+      return console.log(`Invalid status for try again: ${status}`)
+    }
+    status = WAITING
+    emit(WAITING)
   }
 
   Object.assign(instance, {
@@ -63,6 +69,7 @@ const create = ({ baseUrl, mimeTypes }) => {
     getMimeTypes,
     getMethod,
     upload,
+    tryAgain,
     hasDnd: () => dnd
   })
 
@@ -72,5 +79,8 @@ const create = ({ baseUrl, mimeTypes }) => {
 export default create
 
 export const FILES_CHANGE = 'filesChange'
+
+export const WAITING = 'waiting'
 export const UPLOADING = 'uploading'
-export const UPLOADED = 'uploaded'
+export const SUCCESS = 'success'
+export const ERROR = 'error'

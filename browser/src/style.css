@@ -12,7 +12,7 @@
   font-family: sans-serif;
 }
 
-.tu--has-dnd {
+.tu--is-waiting.tu--has-dnd {
   outline: 2px dashed #92b0b3;
   outline-offset: -10px;
 
@@ -20,7 +20,7 @@
   transition: outline-offset .15s ease-in-out, background-color .15s linear;
 }
 
-.tu--is-dragover {
+.tu--is-waiting.tu--is-dragover {
   outline-offset: -20px;
   outline-color: #c8dadf;
   background-color: #fff;
@@ -138,10 +138,14 @@
   font-weight: 700;
   color: #e5edf1;
   background-color: #39bfd3;
-  display: block; /* none */
+  display: block;
   padding: 8px 16px;
   margin: 40px auto 0;
   border: none;
+}
+
+.tu--auto-submit .tu__button {
+  display: none;
 }
 
 .tu__button:hover,
