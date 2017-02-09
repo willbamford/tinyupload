@@ -1,15 +1,37 @@
 import supportsDnd from './supportsDnd';
+import processFiles from './processFiles';
+import addEmitter from '../utils/addEmitter';
 
-var create = function create() {
+var create = function create(_ref) {
+  var baseUrl = _ref.baseUrl,
+      mimeTypes = _ref.mimeTypes;
+
+  var instance = {};
+  var emit = addEmitter(instance);
   var dnd = supportsDnd();
 
+  // State transitions:
+  // WAITING -> UPLOADING -> (SUCCESS -> WAITING | ERROR -> WAITING)
+
+  var status = WAITING;
   var method = null;
   var files = [];
-  var isUploading = false;
+
+  var getMimeTypes = function getMimeTypes() {
+    return mimeTypes;
+  };
+
+  var getStatus = function getStatus() {
+    return status;
+  };
 
   var setFiles = function setFiles(f, m) {
+    if (status !== WAITING) {
+      return console.log('Invalid status for setting files: ' + status);
+    }
     files = f;
     method = m;
+    emit(FILES_CHANGE, files, method);
   };
 
   var getFiles = function getFiles() {
@@ -21,75 +43,57 @@ var create = function create() {
   };
 
   var upload = function upload() {
-    if (isUploading) {
-      return console.log('Already uploading');
+    if (!files.length) {
+      return console.log('No files to upload');
     }
-    isUploading = true;
 
-    files.map();
+    if (status !== WAITING) {
+      return console.log('Invalid status for upload: ' + status);
+    }
 
-    // Do it...
+    status = UPLOADING;
+    emit(UPLOADING, files);
+
+    processFiles(baseUrl, files, function (errors, responses) {
+      if (errors) {
+        status = ERROR;
+        emit(ERROR, errors);
+      } else {
+        status = SUCCESS;
+        emit(SUCCESS, responses);
+      }
+    });
   };
 
-  return {
+  var tryAgain = function tryAgain() {
+    if (!(status === ERROR || status === SUCCESS)) {
+      return console.log('Invalid status for try again: ' + status);
+    }
+    status = WAITING;
+    emit(WAITING);
+  };
+
+  Object.assign(instance, {
     setFiles: setFiles,
+    getStatus: getStatus,
     getFiles: getFiles,
+    getMimeTypes: getMimeTypes,
     getMethod: getMethod,
     upload: upload,
+    tryAgain: tryAgain,
     hasDnd: function hasDnd() {
       return dnd;
     }
-  };
+  });
+
+  return instance;
 };
 
 export default create;
 
-// import getSignedUrl from './getSignedUrl'
+export var FILES_CHANGE = 'filesChange';
 
-// const baseUrl = 'https://ual17esjvc.execute-api.eu-west-1.amazonaws.com/dev/UniversalRenderImageUploadLambda'
-
-// getSignedUrl({  })
-
-//
-// function getSignedRequest (file) {
-//   var xhr = new window.XMLHttpRequest()
-//
-//   var baseUrl = 'https://ual17esjvc.execute-api.eu-west-1.amazonaws.com/dev/UniversalRenderImageUploadLambda'
-//   var qs = '?name=' + file.name + '&type=' + file.type
-//   var url = baseUrl + qs
-//
-//   xhr.open('GET', url, true)
-//   // xhr.setRequestHeader('Content-Type', 'application/json')
-//   xhr.onreadystatechange = () => {
-//     if (xhr.readyState === 4) {
-//       if (xhr.status === 200) {
-//         var response = JSON.parse(xhr.responseText)
-//         // console.log(response)
-//         uploadFile(file, response.signedUrl, response.url)
-//       } else {
-//         window.alert('Could not get signed URL')
-//       }
-//     }
-//   }
-//   xhr.send()
-// }
-//
-// function uploadFile (file, signedRequest, url) {
-//   const xhr = new window.XMLHttpRequest()
-//   xhr.open('PUT', signedRequest)
-//   xhr.onreadystatechange = () => {
-//     if (xhr.readyState === 4) {
-//       if (xhr.status === 200) {
-//         console.log('Success')
-//         console.log(url)
-//
-//         const image = new window.Image()
-//         image.src = url
-//         document.body.appendChild(image)
-//       } else {
-//         window.alert('Could not upload file')
-//       }
-//     }
-//   }
-//   xhr.send(file)
-// }
+export var WAITING = 'waiting';
+export var UPLOADING = 'uploading';
+export var SUCCESS = 'success';
+export var ERROR = 'error';

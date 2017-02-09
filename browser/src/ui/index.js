@@ -1,5 +1,6 @@
 import addEmitter from '../utils/addEmitter'
 import { on } from '../utils/bindTo'
+import { stringIf, pluralIf } from '../utils/string'
 
 const create = ({
   mount,
@@ -17,8 +18,6 @@ const create = ({
   const ERROR_CLASS = 'tu--is-error'
 
   // TODO: data-multiple-caption="{count} files selected"
-
-  const stringIf = (condition, str, def = '') => condition ? str : def
 
   const html = `
     <form
@@ -44,7 +43,7 @@ const create = ({
         <button class="tu__button" type="submit">Upload</button>
       </div>
       <div class="tu__uploading">Uploading&hellip;</div>
-      <div class="tu__success">Done! <a href="javascript:void(0)">Try again</a></div>
+      <div class="tu__success">Done! <span></span> <a href="javascript:void(0)">Try again</a></div>
       <div class="tu__error">Error! <span></span> <a href="javascript:void(0)">Try again</a></div>
     </form>
   `
@@ -55,6 +54,7 @@ const create = ({
 
   const form = container.querySelector('.tu')
   const filesInput = container.querySelector('#tu-files-input')
+  const successMessageSpan = container.querySelector('.tu__success span')
   const successRetryLink = container.querySelector('.tu__success a')
   const errorMessageSpan = container.querySelector('.tu__error > span')
   const errorRetryLink = container.querySelector('.tu__error > a')
@@ -112,14 +112,17 @@ const create = ({
 
   const setSuccess = (responses) => {
     console.log('Responses', responses)
+    const count = responses.length
+    successMessageSpan.innerHTML = `${count} ${pluralIf(count, 'file')} uploaded`
     form.classList.remove(UPLOADING_CLASS)
     form.classList.add(SUCCESS_CLASS)
   }
 
   const setError = (errors) => {
     console.log('Errors', errors)
+    const count = errors.length
+    errorMessageSpan.innerHTML = `${count} ${pluralIf(count, 'error')}`
     form.classList.remove(UPLOADING_CLASS)
-    errorMessageSpan.innerHTML = `${errors.length} error(s)`
     form.classList.add(ERROR_CLASS)
   }
 

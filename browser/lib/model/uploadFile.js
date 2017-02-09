@@ -1,14 +1,15 @@
-var uploadFile = function uploadFile(file, signedRequest, url) {
+var uploadFile = function uploadFile(file, signedUrl, url, cb) {
   var xhr = new window.XMLHttpRequest();
-  xhr.open('PUT', signedRequest);
+  xhr.open('PUT', signedUrl);
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-        var image = new window.Image();
-        image.src = url;
-        document.body.appendChild(image);
+        cb(null, { file: file, url: url });
       } else {
-        window.alert('Could not upload file');
+        cb({
+          message: 'Could not upload file',
+          status: xhr.status
+        });
       }
     }
   };

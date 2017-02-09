@@ -1,0 +1,2 @@
+export var baseUrl = 'https://ual17esjvc.execute-api.eu-west-1.amazonaws.com/dev/UniversalRenderImageUploadLambda';
+export var mimeTypes = ['image/jpeg', 'image/png', 'image/bmp', 'image/gif', 'image/tiff'];
