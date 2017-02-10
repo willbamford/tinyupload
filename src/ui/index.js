@@ -92,13 +92,13 @@ const create = ({
     on(form, 'drop', (e) => onFilesChange(e, e.dataTransfer.files, METHOD_DRAG_AND_DROP))
   }
 
-  const tryAgain = (e) => {
+  const reset = (e) => {
     e.preventDefault()
-    emit(UI_TRY_AGAIN)
+    emit(UI_RESET)
   }
 
-  on(successRetryLink, 'click', tryAgain)
-  on(errorRetryLink, 'click', tryAgain)
+  on(successRetryLink, 'click', reset)
+  on(errorRetryLink, 'click', reset)
 
   const setFiles = (files) => {}
 
@@ -147,4 +147,4 @@ export const METHOD_DRAG_AND_DROP = 'dragAndDrop'
 
 export const UI_SUBMIT = 'submit'
 export const UI_FILES_CHANGE = 'filesChange'
-export const UI_TRY_AGAIN = 'tryAgain'
+export const UI_RESET = 'reset'

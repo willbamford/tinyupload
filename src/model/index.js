@@ -54,9 +54,9 @@ const create = ({ baseUrl, mimeTypes }) => {
     })
   }
 
-  const tryAgain = () => {
+  const reset = () => {
     if (!(status === ERROR || status === SUCCESS)) {
-      return console.log(`Invalid status for try again: ${status}`)
+      return console.log(`Invalid status for reset: ${status}`)
     }
     status = WAITING
     emit(WAITING)
@@ -69,7 +69,7 @@ const create = ({ baseUrl, mimeTypes }) => {
     getMimeTypes,
     getMethod,
     upload,
-    tryAgain,
+    reset,
     hasDnd: () => dnd
   })
 

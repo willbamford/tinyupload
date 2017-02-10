@@ -1,0 +1,153 @@
+/*
+  Modified version of:
+  https://css-tricks.com/drag-and-drop-file-uploading/
+*/
+
+.tu {
+  /*font-size: 1.25rem;*/
+  background-color: #f0f0f0;
+  position: relative;
+  padding: 40px 20px;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.tu--is-waiting.tu--has-dnd {
+  outline: 2px dashed #ccc;
+  outline-offset: -10px;
+
+  -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+  transition: outline-offset .15s ease-in-out, background-color .15s linear;
+}
+
+.tu--is-waiting.tu--is-dragover {
+  outline-offset: -20px;
+  outline-color: #f0f0f0;
+  background-color: #fff;
+}
+
+.tu__dnd, .tu__icon {
+  display: none;
+}
+
+.tu--has-dnd .tu__dnd {
+  display: inline;
+}
+
+.tu--has-dnd .tu__icon {
+  width: 100%;
+  height: 60px;
+  fill: #ccc;
+  display: block;
+  margin-bottom: 30px;
+}
+
+.tu--is-uploading .tu__input,
+.tu--is-success .tu__input,
+.tu--is-error .tu__input {
+  visibility: hidden;
+}
+
+.tu__uploading,
+.tu__success,
+.tu__error {
+  display: none;
+}
+
+.tu--is-uploading .tu__uploading,
+.tu--is-success .tu__success,
+.tu--is-error .tu__error {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.tu__uploading {
+  font-style: italic;
+}
+
+.tu__success {
+  -webkit-animation: appear-from-inside .25s ease-in-out;
+  animation: appear-from-inside .25s ease-in-out;
+}
+
+@-webkit-keyframes appear-from-inside
+{
+  from  { -webkit-transform: translateY( -50% ) scale( 0 ); }
+  75%   { -webkit-transform: translateY( -50% ) scale( 1.1 ); }
+  to    { -webkit-transform: translateY( -50% ) scale( 1 ); }
+}
+
+@keyframes appear-from-inside
+{
+  from  { transform: translateY( -50% ) scale( 0 ); }
+  75%   { transform: translateY( -50% ) scale( 1.1 ); }
+  to    { transform: translateY( -50% ) scale( 1 ); }
+}
+
+.tu__restart
+{
+  font-weight: 700;
+}
+
+.tu__restart:focus,
+.tu__restart:hover {
+  color: green;
+}
+
+.tu__file {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.tu__file + label {
+  max-width: 80%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.tu__file + label:hover strong,
+.tu__file:focus + label strong {
+  text-decoration: underline;
+}
+
+.tu__file:focus + label,
+.tu__file.has-focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.tu__file + label * {
+  /* pointer-events: none; */ /* in case of FastClick lib use */
+}
+
+.tu__button {
+  font-weight: 700;
+  color: white;
+  background-color: black;
+  display: block;
+  padding: 8px 16px;
+  margin: 40px auto 0;
+  border: none;
+}
+
+.tu--auto-submit .tu__button {
+  display: none;
+}
+
+.tu__button:hover,
+.tu__button:focus {
+  background-color: #ccc;
+}
