@@ -3,10 +3,10 @@ import uploadFile from './uploadFile'
 
 const processFile = (baseUrl, file, cb) => {
   getSignedUrl({ name: file.name, type: file.type, baseUrl }, (err, res) => {
-    const { signedUrl, url } = res
     if (err) {
       return cb(err)
     }
+    const { signedUrl, url } = res
     uploadFile(file, signedUrl, url, (err, res) => {
       if (err) {
         return cb(err)

@@ -17,8 +17,6 @@ import createModel, {
 const create = ({ mount, baseUrl, mimeTypes }) => {
   const model = createModel({ baseUrl, mimeTypes })
 
-  console.log('MOUNT:', mount)
-
   const ui = createUI({
     mount,
     mimeTypes: model.getMimeTypes(),

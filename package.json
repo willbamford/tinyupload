@@ -8,7 +8,8 @@
     "test": "standard",
     "lint": "standard",
     "fix": "standard --fix",
-    "build": "yarn cjs && yarn umd && yarn min",
+    "clean": "rm -rf ./dist ./lib",
+    "build": "yarn run clean && yarn cjs && yarn umd && yarn min",
     "cjs": "babel src --out-dir lib && cp src/style.css lib/style.css",
     "umd": "BABEL_ENV=commonjs NODE_ENV=development webpack",
     "min": "BABEL_ENV=commonjs NODE_ENV=production webpack"

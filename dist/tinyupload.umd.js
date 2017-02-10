@@ -428,12 +428,12 @@ var getSignedUrl = function getSignedUrl(_ref, cb) {
 
 var processFile = function processFile(baseUrl, file, cb) {
   __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__getSignedUrl__["a" /* default */])({ name: file.name, type: file.type, baseUrl: baseUrl }, function (err, res) {
-    var signedUrl = res.signedUrl,
-        url = res.url;
-
     if (err) {
       return cb(err);
     }
+    var signedUrl = res.signedUrl,
+        url = res.url;
+
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__uploadFile__["a" /* default */])(file, signedUrl, url, function (err, res) {
       if (err) {
         return cb(err);
