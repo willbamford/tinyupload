@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -81,7 +81,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tiny_emitter__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tiny_emitter__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tiny_emitter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_tiny_emitter__);
 
 
@@ -116,18 +116,8 @@ var addEmitter = function addEmitter(instance) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return baseUrl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mimeTypes; });
-var baseUrl = 'https://ual17esjvc.execute-api.eu-west-1.amazonaws.com/dev/UniversalRenderImageUploadLambda';
-var mimeTypes = ['image/jpeg', 'image/png', 'image/bmp', 'image/gif', 'image/tiff'];
-
-/***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__supportsDnd__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__processFiles__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__supportsDnd__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__processFiles__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_addEmitter__ = __webpack_require__(0);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FILES_CHANGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return WAITING; });
@@ -235,14 +225,14 @@ var SUCCESS = 'success';
 var ERROR = 'error';
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_addEmitter__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_bindTo__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_string__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__upload_svg__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_bindTo__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_string__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__upload_svg__ = __webpack_require__(8);
 /* unused harmony export METHOD_FILE_INPUT */
 /* unused harmony export METHOD_DRAG_AND_DROP */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return UI_SUBMIT; });
@@ -383,13 +373,13 @@ var UI_FILES_CHANGE = 'filesChange';
 var UI_RESET = 'reset';
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -427,12 +417,12 @@ var getSignedUrl = function getSignedUrl(_ref, cb) {
 /* harmony default export */ __webpack_exports__["a"] = getSignedUrl;
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getSignedUrl__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__uploadFile__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getSignedUrl__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__uploadFile__ = __webpack_require__(7);
 
 
 
@@ -476,7 +466,7 @@ var processFiles = function processFiles(baseUrl, files, cb) {
 /* harmony default export */ __webpack_exports__["a"] = processFiles;
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -488,7 +478,7 @@ var supportsDnd = function supportsDnd() {
 /* harmony default export */ __webpack_exports__["a"] = supportsDnd;
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -513,14 +503,14 @@ var uploadFile = function uploadFile(file, signedUrl, url, cb) {
 /* harmony default export */ __webpack_exports__["a"] = uploadFile;
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = '<svg class="tu__icon" xmlns="http://www.w3.org/2000/svg" width="50" height="43" viewBox="0 0 50 43"><path d="M48.4 26.5c-.9 0-1.7.7-1.7 1.7v11.6h-43.3v-11.6c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v13.2c0 .9.7 1.7 1.7 1.7h46.7c.9 0 1.7-.7 1.7-1.7v-13.2c0-1-.7-1.7-1.7-1.7zm-24.5 6.1c.3.3.8.5 1.2.5.4 0 .9-.2 1.2-.5l10-11.6c.7-.7.7-1.7 0-2.4s-1.7-.7-2.4 0l-7.1 8.3v-25.3c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v25.3l-7.1-8.3c-.7-.7-1.7-.7-2.4 0s-.7 1.7 0 2.4l10 11.6z"></path></svg>';
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -539,7 +529,7 @@ var off = function off(element, names, fn) {
 };
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -556,7 +546,7 @@ var pluralIf = function pluralIf(count, singular) {
 };
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports) {
 
 function E () {
@@ -628,29 +618,29 @@ module.exports = E;
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ui__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ui__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model__ = __webpack_require__(1);
 
 
 
 
 
 
+var create = function create(_ref) {
+  var baseUrl = _ref.baseUrl,
+      mimeTypes = _ref.mimeTypes;
 
-
-var create = function create() {
-  var model = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__model__["a" /* default */])({ baseUrl: __WEBPACK_IMPORTED_MODULE_1__config__["a" /* baseUrl */], mimeTypes: __WEBPACK_IMPORTED_MODULE_1__config__["b" /* mimeTypes */] });
+  var model = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__model__["a" /* default */])({ baseUrl: baseUrl, mimeTypes: mimeTypes });
 
   var mount = document.getElementById('mount');
-  var ui = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__ui__["a" /* default */])({
+  var ui = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__ui__["a" /* default */])({
     mount: mount,
     mimeTypes: model.getMimeTypes(),
     hasDnd: model.hasDnd(),
@@ -658,9 +648,9 @@ var create = function create() {
     multiple: true
   });
 
-  ui.on(__WEBPACK_IMPORTED_MODULE_2__ui__["b" /* UI_FILES_CHANGE */], model.setFiles).on(__WEBPACK_IMPORTED_MODULE_2__ui__["c" /* UI_SUBMIT */], model.upload).on(__WEBPACK_IMPORTED_MODULE_2__ui__["d" /* UI_RESET */], model.reset);
+  ui.on(__WEBPACK_IMPORTED_MODULE_1__ui__["b" /* UI_FILES_CHANGE */], model.setFiles).on(__WEBPACK_IMPORTED_MODULE_1__ui__["c" /* UI_SUBMIT */], model.upload).on(__WEBPACK_IMPORTED_MODULE_1__ui__["d" /* UI_RESET */], model.reset);
 
-  model.on(__WEBPACK_IMPORTED_MODULE_3__model__["b" /* FILES_CHANGE */], ui.setFiles).on(__WEBPACK_IMPORTED_MODULE_3__model__["c" /* WAITING */], ui.setWaiting).on(__WEBPACK_IMPORTED_MODULE_3__model__["d" /* UPLOADING */], ui.setUploading).on(__WEBPACK_IMPORTED_MODULE_3__model__["e" /* SUCCESS */], ui.setSuccess).on(__WEBPACK_IMPORTED_MODULE_3__model__["f" /* ERROR */], ui.setError);
+  model.on(__WEBPACK_IMPORTED_MODULE_2__model__["b" /* FILES_CHANGE */], ui.setFiles).on(__WEBPACK_IMPORTED_MODULE_2__model__["c" /* WAITING */], ui.setWaiting).on(__WEBPACK_IMPORTED_MODULE_2__model__["d" /* UPLOADING */], ui.setUploading).on(__WEBPACK_IMPORTED_MODULE_2__model__["e" /* SUCCESS */], ui.setSuccess).on(__WEBPACK_IMPORTED_MODULE_2__model__["f" /* ERROR */], ui.setError);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = create;

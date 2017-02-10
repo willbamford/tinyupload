@@ -1,7 +1,5 @@
 import './style.css'
 
-import { baseUrl, mimeTypes } from './config'
-
 import createUI, {
   UI_FILES_CHANGE,
   UI_SUBMIT,
@@ -16,7 +14,7 @@ import createModel, {
   ERROR
 } from './model'
 
-const create = () => {
+const create = ({ baseUrl, mimeTypes }) => {
   const model = createModel({ baseUrl, mimeTypes })
 
   const mount = document.getElementById('mount')
