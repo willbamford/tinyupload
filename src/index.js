@@ -14,10 +14,11 @@ import createModel, {
   ERROR
 } from './model'
 
-const create = ({ baseUrl, mimeTypes }) => {
+const create = ({ mount, baseUrl, mimeTypes }) => {
   const model = createModel({ baseUrl, mimeTypes })
 
-  const mount = document.getElementById('mount')
+  console.log('MOUNT:', mount)
+
   const ui = createUI({
     mount,
     mimeTypes: model.getMimeTypes(),

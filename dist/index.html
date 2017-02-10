@@ -1,7 +1,8 @@
-<head><link href="/tinyupload.css" rel="stylesheet"></head><div id="mount"></div>
+<head><link href="/tinyupload.css" rel="stylesheet"><script type="text/javascript" src="/tinyupload.umd.min.js"></script></head><div id="mount"></div>
 
 <script>
   const uploader = tinyupload.default({
+    mount: document.getElementById('mount'),
     baseUrl: 'https://ual17esjvc.execute-api.eu-west-1.amazonaws.com/dev/UniversalRenderImageUploadLambda',
     mimeTypes: [
       'image/jpeg',
@@ -12,4 +13,3 @@
     ]
   })
 </script>
-<script type="text/javascript" src="/tinyupload.umd.min.js"></script>

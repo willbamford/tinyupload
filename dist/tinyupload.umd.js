@@ -634,12 +634,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 var create = function create(_ref) {
-  var baseUrl = _ref.baseUrl,
+  var mount = _ref.mount,
+      baseUrl = _ref.baseUrl,
       mimeTypes = _ref.mimeTypes;
 
   var model = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__model__["a" /* default */])({ baseUrl: baseUrl, mimeTypes: mimeTypes });
 
-  var mount = document.getElementById('mount');
   var ui = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__ui__["a" /* default */])({
     mount: mount,
     mimeTypes: model.getMimeTypes(),

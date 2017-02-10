@@ -43,7 +43,7 @@ const common = {
   },
   plugins: [
     new ExtractTextPlugin(`${NAME}.css`),
-    new HtmlPlugin({ template: 'src/index.html' }),
+    new HtmlPlugin({ template: 'src/index.html', inject: 'head' }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(env)
     })
