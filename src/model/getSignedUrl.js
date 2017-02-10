@@ -1,7 +1,7 @@
 const getSignedUrl = ({ name, type, baseUrl }, cb) => {
   const xhr = new window.XMLHttpRequest()
 
-  const qs = '?name=' + name + '&type=' + type
+  const qs = '?name=' + encodeURIComponent(name) + '&type=' + encodeURIComponent(type)
   const url = baseUrl + qs
 
   xhr.open('GET', url, true)
@@ -16,7 +16,7 @@ const getSignedUrl = ({ name, type, baseUrl }, cb) => {
         }
       } else {
         cb({
-          message: 'Could not get signed URL',
+          message: `Could not get signed URL for ${url}`,
           status: xhr.status
         })
       }
