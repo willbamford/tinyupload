@@ -157,7 +157,7 @@ var create = function create(_ref) {
     }
     files = f;
     method = m;
-    emit(FILES_CHANGE, files, method);
+    emit(FILES_CHANGE, files);
   };
 
   var getFiles = function getFiles() {
@@ -218,7 +218,6 @@ var create = function create(_ref) {
 /* harmony default export */ __webpack_exports__["a"] = create;
 
 var FILES_CHANGE = 'filesChange';
-
 var WAITING = 'waiting';
 var UPLOADING = 'uploading';
 var SUCCESS = 'success';
@@ -625,8 +624,16 @@ module.exports = E;
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ui__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_addEmitter__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ui__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model__ = __webpack_require__(1);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPLOAD_FILES_CHANGE", function() { return UPLOAD_FILES_CHANGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPLOAD_WAITING", function() { return UPLOAD_WAITING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPLOAD_UPLOADING", function() { return UPLOAD_UPLOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPLOAD_SUCCESS", function() { return UPLOAD_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPLOAD_ERROR", function() { return UPLOAD_ERROR; });
+
+
 
 
 
@@ -636,24 +643,54 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 var create = function create(_ref) {
   var mount = _ref.mount,
       baseUrl = _ref.baseUrl,
-      mimeTypes = _ref.mimeTypes;
+      mimeTypes = _ref.mimeTypes,
+      _ref$multiple = _ref.multiple,
+      multiple = _ref$multiple === undefined ? false : _ref$multiple,
+      _ref$autoSubmit = _ref.autoSubmit,
+      autoSubmit = _ref$autoSubmit === undefined ? true : _ref$autoSubmit;
 
-  var model = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__model__["a" /* default */])({ baseUrl: baseUrl, mimeTypes: mimeTypes });
+  var instance = {};
+  var emit = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils_addEmitter__["a" /* default */])(instance);
 
-  var ui = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__ui__["a" /* default */])({
+  var model = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__model__["a" /* default */])({ baseUrl: baseUrl, mimeTypes: mimeTypes });
+
+  var ui = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__ui__["a" /* default */])({
     mount: mount,
     mimeTypes: model.getMimeTypes(),
     hasDnd: model.hasDnd(),
-    autoSubmit: true,
-    multiple: true
+    autoSubmit: autoSubmit,
+    multiple: multiple
   });
 
-  ui.on(__WEBPACK_IMPORTED_MODULE_1__ui__["b" /* UI_FILES_CHANGE */], model.setFiles).on(__WEBPACK_IMPORTED_MODULE_1__ui__["c" /* UI_SUBMIT */], model.upload).on(__WEBPACK_IMPORTED_MODULE_1__ui__["d" /* UI_RESET */], model.reset);
+  ui.on(__WEBPACK_IMPORTED_MODULE_2__ui__["b" /* UI_FILES_CHANGE */], model.setFiles).on(__WEBPACK_IMPORTED_MODULE_2__ui__["c" /* UI_SUBMIT */], model.upload).on(__WEBPACK_IMPORTED_MODULE_2__ui__["d" /* UI_RESET */], model.reset);
 
-  model.on(__WEBPACK_IMPORTED_MODULE_2__model__["b" /* FILES_CHANGE */], ui.setFiles).on(__WEBPACK_IMPORTED_MODULE_2__model__["c" /* WAITING */], ui.setWaiting).on(__WEBPACK_IMPORTED_MODULE_2__model__["d" /* UPLOADING */], ui.setUploading).on(__WEBPACK_IMPORTED_MODULE_2__model__["e" /* SUCCESS */], ui.setSuccess).on(__WEBPACK_IMPORTED_MODULE_2__model__["f" /* ERROR */], ui.setError);
+  model.on(__WEBPACK_IMPORTED_MODULE_3__model__["b" /* FILES_CHANGE */], function (files) {
+    ui.setFiles(files);
+    emit(UPLOAD_FILES_CHANGE, files);
+  }).on(__WEBPACK_IMPORTED_MODULE_3__model__["c" /* WAITING */], function () {
+    ui.setWaiting();
+    emit(UPLOAD_WAITING);
+  }).on(__WEBPACK_IMPORTED_MODULE_3__model__["d" /* UPLOADING */], function (file) {
+    ui.setUploading(file);
+    emit(UPLOAD_UPLOADING, file);
+  }).on(__WEBPACK_IMPORTED_MODULE_3__model__["e" /* SUCCESS */], function (responses) {
+    ui.setSuccess(responses);
+    emit(UPLOAD_SUCCESS, responses);
+  }).on(__WEBPACK_IMPORTED_MODULE_3__model__["f" /* ERROR */], function (errors) {
+    ui.setError(errors);
+    emit(UPLOAD_ERROR, errors);
+  });
+
+  return instance;
 };
 
 /* harmony default export */ __webpack_exports__["default"] = create;
+
+var UPLOAD_FILES_CHANGE = 'uploadFilesChange';
+var UPLOAD_WAITING = 'uploadWaiting';
+var UPLOAD_UPLOADING = 'uploadUploading';
+var UPLOAD_SUCCESS = 'uploadSuccess';
+var UPLOAD_ERROR = 'uploadError';
 
 /***/ })
 /******/ ]);

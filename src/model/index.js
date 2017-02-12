@@ -24,7 +24,7 @@ const create = ({ baseUrl, mimeTypes }) => {
     }
     files = f
     method = m
-    emit(FILES_CHANGE, files, method)
+    emit(FILES_CHANGE, files)
   }
 
   const getFiles = () => files
@@ -79,7 +79,6 @@ const create = ({ baseUrl, mimeTypes }) => {
 export default create
 
 export const FILES_CHANGE = 'filesChange'
-
 export const WAITING = 'waiting'
 export const UPLOADING = 'uploading'
 export const SUCCESS = 'success'
