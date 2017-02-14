@@ -5,8 +5,8 @@ const merge = require('webpack-merge')
 const path = require('path')
 
 const env = process.env.NODE_ENV
-
 const NAME = 'tinyupload'
+const extractCSS = new ExtractTextPlugin(`${NAME}.css`)
 
 const common = {
   entry: {
@@ -31,10 +31,7 @@ const common = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader'
-        })
+        use: extractCSS.extract(['css-loader', 'postcss-loader'])
       }
     ]
   },
@@ -42,7 +39,7 @@ const common = {
     extensions: ['.js', '.jsx', '.glsl']
   },
   plugins: [
-    new ExtractTextPlugin(`${NAME}.css`),
+    extractCSS,
     new HtmlPlugin({ template: 'src/index.html', inject: 'head' }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(env)
