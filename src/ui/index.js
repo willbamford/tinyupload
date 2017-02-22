@@ -40,8 +40,8 @@ const create = ({
           ${stringIf(multiple, 'multiple')}
         />
         <label for="tu-files-input">
-          <strong>${stringIf(multiple, 'Choose files', 'Choose a file')}</strong>
-          <span class="tu__dnd"> or drag here</span>
+          <span class="tu__dnd">Drop ${pluralIf(multiple, 'file')} here or</span>
+          <strong>browse</strong>
         </label>
         <button class="tu__button" type="submit">Upload</button>
       </div>
