@@ -14,7 +14,7 @@
 
 .tu--is-waiting.tu--has-dnd {
   outline: 2px dashed #ccc;
-  /*outline-offset: -20px;*/
+  outline-offset: -2px;
   transition: outline-offset .15s ease-in-out, background-color .15s linear;
 }
 
