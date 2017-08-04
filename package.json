@@ -11,13 +11,6 @@
     "test": "eslint . --ext .js",
     "fix": "eslint . --ext .js --fix"
   },
-  "standard": {
-    "ignore": [
-      "dist",
-      "lib",
-      "lambda"
-    ]
-  },
   "author": "Will Bamford",
   "license": "MIT",
   "repository": {
