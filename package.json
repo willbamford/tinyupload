@@ -1,6 +1,6 @@
 {
   "name": "tinyupload",
-  "version": "1.3.2",
+  "version": "2.0.0",
   "description": "tinyupload browser",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
