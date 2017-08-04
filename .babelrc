@@ -1,13 +1,11 @@
 {
   "presets": [
-    ["es2015", { "modules": false }],
-    "stage-3"
-  ],
-  "env": {
-    "cjs": {
-      "plugins": [
-        ["transform-es2015-modules-commonjs", { "loose": true }]
-      ]
-    }
-  }
+    ["env", {
+      "targets": {
+        "browsers": ["last 2 versions", "ie 9-11"]
+      },
+      "modules": false,
+      "loose": true
+    }]
+  ]
 }

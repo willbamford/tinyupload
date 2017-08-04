@@ -17,9 +17,11 @@ const addEmitter = (instance) => {
     return instance
   }
 
+  /* eslint-disable no-param-reassign */
   instance.on = on
   instance.once = once
   instance.off = off
+  /* eslint-enable no-param-reassign */
 
   return emit
 }

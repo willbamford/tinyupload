@@ -1,7 +1,7 @@
 const getSignedUrl = ({ name, type, baseUrl }, cb) => {
   const xhr = new window.XMLHttpRequest()
 
-  const qs = '?name=' + encodeURIComponent(name) + '&type=' + encodeURIComponent(type)
+  const qs = `?name=${encodeURIComponent(name)}&type=${encodeURIComponent(type)}`
   const url = baseUrl + qs
 
   xhr.open('GET', url, true)

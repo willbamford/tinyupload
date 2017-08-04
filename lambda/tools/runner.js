@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const handler = require('../src').handler
 
 // Uncomment to test the distribution:
@@ -12,19 +13,20 @@ const event = {
 
 const header = (text) => {
   const line = (len) => {
-    var s = ''
-    for (var i = 0; i < len; i += 1) { s += '-' }
+    let s = ''
+    for (let i = 0; i < len; i += 1) { s += '-' }
     return s
   }
   console.log('\n')
   console.log(line(text.length + 4))
-  console.log('| ' + text + ' |')
+  console.log(`| ${text} |`)
   console.log(line(text.length + 4))
 }
 
 const callback = (err, result) => {
   if (err) {
-    return console.log(err)
+    console.log(err)
+    return
   }
 
   const params = JSON.parse(result.body)

@@ -1,7 +1,15 @@
+/* eslint-disable no-console */
 import addEmitter from '../utils/addEmitter'
 import { on } from '../utils/bindTo'
 import { stringIf, pluralIf } from '../utils/string'
 import svg from './upload.svg'
+
+export const METHOD_FILE_INPUT = 'filesInput'
+export const METHOD_DRAG_AND_DROP = 'dragAndDrop'
+
+export const UI_SUBMIT = 'submit'
+export const UI_FILES_CHANGE = 'filesChange'
+export const UI_RESET = 'reset'
 
 const create = ({
   mount,
@@ -78,7 +86,7 @@ const create = ({
     })
   }
 
-  on(filesInput, 'change', (e) => onFilesChange(e, filesInput.files, METHOD_FILE_INPUT))
+  on(filesInput, 'change', e => onFilesChange(e, filesInput.files, METHOD_FILE_INPUT))
 
   if (hasDnd) {
     const swallow = (e) => {
@@ -89,7 +97,7 @@ const create = ({
     on(form, 'drag dragstart dragend dragover dragenter dragleave drop', swallow)
     on(form, 'dragover dragenter', () => form.classList.add('tu--is-dragover'))
     on(form, 'dragleave dragend drop', () => form.classList.remove('tu--is-dragover'))
-    on(form, 'drop', (e) => onFilesChange(e, e.dataTransfer.files, METHOD_DRAG_AND_DROP))
+    on(form, 'drop', e => onFilesChange(e, e.dataTransfer.files, METHOD_DRAG_AND_DROP))
   }
 
   const reset = (e) => {
@@ -100,7 +108,7 @@ const create = ({
   on(successRetryLink, 'click', reset)
   on(errorRetryLink, 'click', reset)
 
-  const setFiles = (files) => {}
+  const setFiles = (/* files */) => {}
 
   const setWaiting = () => {
     form.classList.add(WAITING_CLASS)
@@ -141,10 +149,3 @@ const create = ({
 }
 
 export default create
-
-export const METHOD_FILE_INPUT = 'filesInput'
-export const METHOD_DRAG_AND_DROP = 'dragAndDrop'
-
-export const UI_SUBMIT = 'submit'
-export const UI_FILES_CHANGE = 'filesChange'
-export const UI_RESET = 'reset'

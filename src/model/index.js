@@ -1,6 +1,13 @@
+/* eslint-disable no-console */
 import supportsDnd from './supportsDnd'
 import processFiles from './processFiles'
 import addEmitter from '../utils/addEmitter'
+
+export const FILES_CHANGE = 'filesChange'
+export const WAITING = 'waiting'
+export const UPLOADING = 'uploading'
+export const SUCCESS = 'success'
+export const ERROR = 'error'
 
 const create = ({ baseUrl, mimeTypes }) => {
   const instance = {}
@@ -20,7 +27,8 @@ const create = ({ baseUrl, mimeTypes }) => {
 
   const setFiles = (f, m) => {
     if (status !== WAITING) {
-      return console.log(`Invalid status for setting files: ${status}`)
+      console.log(`Invalid status for setting files: ${status}`)
+      return
     }
     files = f
     method = m
@@ -33,11 +41,13 @@ const create = ({ baseUrl, mimeTypes }) => {
 
   const upload = () => {
     if (!files.length) {
-      return console.log('No files to upload')
+      console.log('No files to upload')
+      return
     }
 
     if (status !== WAITING) {
-      return console.log(`Invalid status for upload: ${status}`)
+      console.log(`Invalid status for upload: ${status}`)
+      return
     }
 
     status = UPLOADING
@@ -56,7 +66,8 @@ const create = ({ baseUrl, mimeTypes }) => {
 
   const reset = () => {
     if (!(status === ERROR || status === SUCCESS)) {
-      return console.log(`Invalid status for reset: ${status}`)
+      console.log(`Invalid status for reset: ${status}`)
+      return
     }
     status = WAITING
     emit(WAITING)
@@ -77,9 +88,3 @@ const create = ({ baseUrl, mimeTypes }) => {
 }
 
 export default create
-
-export const FILES_CHANGE = 'filesChange'
-export const WAITING = 'waiting'
-export const UPLOADING = 'uploading'
-export const SUCCESS = 'success'
-export const ERROR = 'error'

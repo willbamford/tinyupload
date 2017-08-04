@@ -1,5 +1,6 @@
 const AWS = require('aws-sdk')
 const uuid = require('uuid/v4')
+
 const s3 = new AWS.S3()
 const config = require('./config')
 
@@ -16,7 +17,7 @@ exports.handler = (event, context, callback) => {
     const statusCode = 400
     const response = {
       statusCode,
-      headers: headers,
+      headers,
       body: JSON.stringify({ error: err, statusCode })
     }
     callback(null, response)
@@ -25,25 +26,28 @@ exports.handler = (event, context, callback) => {
   const success = (params) => {
     const response = {
       statusCode: 200,
-      headers: headers,
+      headers,
       body: JSON.stringify(params)
     }
     callback(null, response)
   }
 
   if (!type) {
-    return error('Missing "type"')
+    error('Missing "type"')
+    return
   }
 
   if (config.mimeTypes.indexOf(type) === -1) {
-    return error(`Unsupported "type": ${type}`)
+    error(`Unsupported "type": ${type}`)
+    return
   }
 
   if (!name) {
-    return error('Missing "name"')
+    error('Missing "name"')
+    return
   }
 
-  const key = uuid() + '_' + name.replace(/[^A-Za-z-_0-9!().]/g, '')
+  const key = `${uuid()}_${name.replace(/[^A-Za-z-_0-9!().]/g, '')}`
 
   const params = {
     Key: key,
@@ -53,15 +57,13 @@ exports.handler = (event, context, callback) => {
     ACL: acl
   }
 
-  s3.getSignedUrl('putObject', params, (err, signedUrl) => {
-    return err
-      ? error(err)
-      : success({
-        signedUrl,
-        url: `https://${bucketName}.s3.amazonaws.com/${key}`,
-        type,
-        name,
-        params
-      })
-  })
+  s3.getSignedUrl('putObject', params, (err, signedUrl) => (err
+    ? error(err)
+    : success({
+      signedUrl,
+      url: `https://${bucketName}.s3.amazonaws.com/${key}`,
+      type,
+      name,
+      params
+    })))
 }

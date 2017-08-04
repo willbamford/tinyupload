@@ -1,5 +1,3 @@
-import './style.css'
-
 import addEmitter from './utils/addEmitter'
 
 import createUI, {
@@ -15,6 +13,12 @@ import createModel, {
   SUCCESS,
   ERROR
 } from './model'
+
+export const UPLOAD_FILES_CHANGE = 'uploadFilesChange'
+export const UPLOAD_WAITING = 'uploadWaiting'
+export const UPLOAD_UPLOADING = 'uploadUploading'
+export const UPLOAD_SUCCESS = 'uploadSuccess'
+export const UPLOAD_ERROR = 'uploadError'
 
 const create = ({
   mount,
@@ -67,9 +71,3 @@ const create = ({
 }
 
 export default create
-
-export const UPLOAD_FILES_CHANGE = 'uploadFilesChange'
-export const UPLOAD_WAITING = 'uploadWaiting'
-export const UPLOAD_UPLOADING = 'uploadUploading'
-export const UPLOAD_SUCCESS = 'uploadSuccess'
-export const UPLOAD_ERROR = 'uploadError'
