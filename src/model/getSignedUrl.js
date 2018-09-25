@@ -5,6 +5,7 @@ const getSignedUrl = ({ name, type, baseUrl }, cb) => {
   const url = baseUrl + qs
 
   xhr.open('GET', url, true)
+
   // xhr.setRequestHeader('Content-Type', 'application/json')
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4) {
@@ -17,7 +18,7 @@ const getSignedUrl = ({ name, type, baseUrl }, cb) => {
       } else {
         cb({
           message: `Could not get signed URL for ${url}`,
-          status: xhr.status
+          status: xhr.status,
         })
       }
     }

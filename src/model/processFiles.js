@@ -1,21 +1,34 @@
 import getSignedUrl from './getSignedUrl'
 import uploadFile from './uploadFile'
+import uploadFileRaw from './uploadFileRaw'
+
+const SIGN_URLS = true
 
 const processFile = (baseUrl, file, cb) => {
-  getSignedUrl({ name: file.name, type: file.type, baseUrl }, (err, res) => {
-    if (err) {
-      cb(err)
-      return
-    }
-    const { signedUrl, url } = res
-    uploadFile(file, signedUrl, url, (uploadErr, uploadRes) => {
+  if (SIGN_URLS) {
+    getSignedUrl({ name: file.name, type: file.type, baseUrl }, (err, res) => {
+      if (err) {
+        cb(err)
+        return
+      }
+      const { signedUrl, url } = res
+      uploadFile(file, signedUrl, url, (uploadErr, uploadRes) => {
+        if (uploadErr) {
+          cb(uploadErr)
+          return
+        }
+        cb(null, uploadRes)
+      })
+    })
+  } else {
+    uploadFileRaw(file, baseUrl, (uploadErr, uploadRes) => {
       if (uploadErr) {
         cb(uploadErr)
         return
       }
       cb(null, uploadRes)
     })
-  })
+  }
 }
 
 const processFiles = (baseUrl, files, cb) => {

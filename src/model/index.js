@@ -81,7 +81,7 @@ const create = ({ baseUrl, mimeTypes }) => {
     getMethod,
     upload,
     reset,
-    hasDnd: () => dnd
+    hasDnd: () => dnd,
   })
 
   return instance

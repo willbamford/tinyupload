@@ -10,7 +10,7 @@ Browser image upload to S3 using AWS Lambda for pre-signed URLs.
 <script>
   const uploader = tinyupload.default({
     mount: document.getElementById('mount'),
-    baseUrl: 'https://ual17esjvc.execute-api.eu-west-1.amazonaws.com/dev/UniversalRenderImageUploadLambda',
+    baseUrl: 'https://abc12xxyy.execute-api.eu-west-1.amazonaws.com/dev/lambda-name-here',
     mimeTypes: [
       'image/jpeg',
       'image/png',

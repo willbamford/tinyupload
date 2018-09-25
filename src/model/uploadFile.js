@@ -8,7 +8,7 @@ const uploadFile = (file, signedUrl, url, cb) => {
       } else {
         cb({
           message: 'Could not upload file',
-          status: xhr.status
+          status: xhr.status,
         })
       }
     }

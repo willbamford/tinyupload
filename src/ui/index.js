@@ -11,13 +11,7 @@ export const UI_SUBMIT = 'submit'
 export const UI_FILES_CHANGE = 'filesChange'
 export const UI_RESET = 'reset'
 
-const create = ({
-  mount,
-  mimeTypes,
-  hasDnd,
-  autoSubmit = true,
-  multiple = true
-}) => {
+const create = ({ mount, mimeTypes, hasDnd, autoSubmit = true, multiple = true }) => {
   const instance = {}
   const emit = addEmitter(instance)
 
@@ -32,7 +26,10 @@ const create = ({
 
   const html = `
     <form
-      class="tu ${WAITING_CLASS} ${stringIf(hasDnd, HAS_DND_CLASS)} ${stringIf(autoSubmit, AUTO_SUBMIT_CLASS)}"
+      class="tu ${WAITING_CLASS} ${stringIf(hasDnd, HAS_DND_CLASS)} ${stringIf(
+    autoSubmit,
+    AUTO_SUBMIT_CLASS
+  )}"
       method="post"
       action=""
       enctype="multipart/form-data"
@@ -42,7 +39,7 @@ const create = ({
         <input
           class="tu__file"
           type="file"
-          name="files[]"
+          name="files"
           id="tu-files-input"
           accept="${mimeTypes.join(', ')}"
           ${stringIf(multiple, 'multiple')}
@@ -79,7 +76,7 @@ const create = ({
   }
 
   if (!autoSubmit) {
-    on(form, 'submit', (e) => {
+    on(form, 'submit', e => {
       e.preventDefault()
       emit(UI_SUBMIT)
       return false
@@ -89,7 +86,7 @@ const create = ({
   on(filesInput, 'change', e => onFilesChange(e, filesInput.files, METHOD_FILE_INPUT))
 
   if (hasDnd) {
-    const swallow = (e) => {
+    const swallow = e => {
       e.preventDefault()
       e.stopPropagation()
     }
@@ -100,7 +97,7 @@ const create = ({
     on(form, 'drop', e => onFilesChange(e, e.dataTransfer.files, METHOD_DRAG_AND_DROP))
   }
 
-  const reset = (e) => {
+  const reset = e => {
     e.preventDefault()
     emit(UI_RESET)
   }
@@ -121,15 +118,14 @@ const create = ({
     form.classList.add(UPLOADING_CLASS)
   }
 
-  const setSuccess = (responses) => {
-    console.log('Responses', responses)
+  const setSuccess = responses => {
     const count = responses.length
     successMessageSpan.innerHTML = `${count} ${pluralIf(count, 'file')} uploaded`
     form.classList.remove(UPLOADING_CLASS)
     form.classList.add(SUCCESS_CLASS)
   }
 
-  const setError = (errors) => {
+  const setError = errors => {
     console.log('Errors', errors)
     const count = errors.length
     errorMessageSpan.innerHTML = `${count} ${pluralIf(count, 'error')}`
@@ -142,7 +138,7 @@ const create = ({
     setWaiting,
     setUploading,
     setSuccess,
-    setError
+    setError,
   })
 
   return instance
